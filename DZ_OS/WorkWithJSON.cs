@@ -7,7 +7,7 @@ namespace DZ_OS
 {
   
     [DataContract]
-    public class News
+    public class ThisNew
     {
       [DataMember]
       public string Id;
@@ -17,12 +17,15 @@ namespace DZ_OS
 
     class WorkWithJSON
     {
-      public static void SetNewsInJSON(News[] news)
+      public static void SetNewInJSON(string id, string text)
       {
-        DataContractSerializer dataContractJsonSerializer = new DataContractSerializer(typeof(News[]));
-        using (FileStream file = new FileStream("студент1.json", FileMode.OpenOrCreate))
+      ThisNew thisNew = new ThisNew();
+      thisNew.Id = id;
+      thisNew.Text = text;
+        DataContractSerializer dataContractJsonSerializer = new DataContractSerializer(typeof(ThisNew));
+        using (FileStream file = new FileStream("f1(text).json", FileMode.OpenOrCreate))
         {
-          dataContractJsonSerializer.WriteObject(file, news);
+          dataContractJsonSerializer.WriteObject(file, thisNew);
         }
       }
      /*
@@ -38,5 +41,4 @@ namespace DZ_OS
       }
      */
     }
-  }
 }

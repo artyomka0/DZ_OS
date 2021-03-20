@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DZ_OS"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Домашняя работа по ОС" Height="450" Width="800">
     <Grid>
-        <Button Content="кнопка" HorizontalAlignment="Left" Margin="356,187,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button FontSize="50 px" Content="Запустить Хром" Background="IndianRed" HorizontalAlignment="Left" Margin="212,176,0,0" VerticalAlignment="Top" Width="auto" Click="Button_Click"/>
 
     </Grid>
 </Window>
