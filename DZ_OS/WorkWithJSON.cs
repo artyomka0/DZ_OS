@@ -22,7 +22,7 @@ namespace DZ_OS
       ThisNew thisNew = new ThisNew();
       thisNew.Id = id;
       thisNew.Text = text;
-        DataContractSerializer dataContractJsonSerializer = new DataContractSerializer(typeof(ThisNew));
+      DataContractJsonSerializer dataContractJsonSerializer = new DataContractJsonSerializer(typeof(ThisNew));
         using (FileStream file = new FileStream("f1(text).json", FileMode.OpenOrCreate))
         {
           dataContractJsonSerializer.WriteObject(file, thisNew);

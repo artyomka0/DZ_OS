@@ -34,7 +34,7 @@ namespace DZ_OS
       ChromeOptions chromeOptions = new ChromeOptions();
       // for PC C:\Users\Titanicus\AppData\Local\Google\Chrome\User Data
       // for laptop C:\Users\Admin\AppData\Local\Google\Chrome\User Data
-      chromeOptions.AddArgument(@"user-data-dir=C:\Users\Admin\AppData\Local\Google\Chrome\User Data");
+      chromeOptions.AddArgument(@"user-data-dir=C:\Users\Titanicus\AppData\Local\Google\Chrome\User Data");
       ChromeDriver chromeDriver = new ChromeDriver(chromeOptions);
       chromeDriver.Navigate().GoToUrl("https://vk.com/feed");
       
@@ -62,7 +62,8 @@ namespace DZ_OS
           continue;
         if (!item.Text.ToString().Equals(""))
         {
-          WorkWithJSON.SetNewInJSON("789", item.Text.ToString());
+          //WorkWithJSON.SetNewInJSON("789", item.Text.ToString());
+         // WorkWithJSON.SetNewInJSON("id1","text1");
         }
         
 
