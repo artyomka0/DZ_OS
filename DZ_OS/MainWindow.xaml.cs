@@ -28,20 +28,26 @@ namespace DZ_OS
       if (System.IO.File.Exists("f1(text).json"))
         System.IO.File.Delete("f1(text).json");
     }
-
+    /*
+    public class News
+    {
+      public string Id;
+      public string Text;
+    }
+    */
     private void Button_Click(object sender, RoutedEventArgs e)
     {
       ChromeOptions chromeOptions = new ChromeOptions();
       // for PC C:\Users\Titanicus\AppData\Local\Google\Chrome\User Data
       // for laptop C:\Users\Admin\AppData\Local\Google\Chrome\User Data
-      chromeOptions.AddArgument(@"user-data-dir=C:\Users\Titanicus\AppData\Local\Google\Chrome\User Data");
+      chromeOptions.AddArgument(@"user-data-dir=C:\Users\Admin\AppData\Local\Google\Chrome\User Data");
       ChromeDriver chromeDriver = new ChromeDriver(chromeOptions);
       chromeDriver.Navigate().GoToUrl("https://vk.com/feed");
       
        //поиск с первой пары
       List<IWebElement> webElements = chromeDriver.FindElementsById("feed_rows").ToList();
       IWebElement webElementParent = null;
-      WorkWithJSON.SetNewInJSON("id","text");
+      //WorkWithJSON.SetNewInJSON("id","text");
       foreach (var item in webElements)
       {
         if (!item.Displayed)
@@ -60,13 +66,8 @@ namespace DZ_OS
           continue;
         if (!item.GetAttribute("class").Trim().Equals("feed_row"))
           continue;
-        if (!item.Text.ToString().Equals(""))
-        {
-          //WorkWithJSON.SetNewInJSON("789", item.Text.ToString());
-         // WorkWithJSON.SetNewInJSON("id1","text1");
-        }
-        
-
+        if (item.Text.ToString().Equals(""))
+          continue;
         /*
         string NewsText = item.Text;
         List<IWebElement> webElementsChild = item.FindElements(By.ClassName("author")).ToList();
@@ -88,6 +89,15 @@ namespace DZ_OS
         }
         */
       }
+
+      News[] news = new News[webElements.Count()];
+      for (int i = 0; i < webElements.Count(); i++)
+      {
+        news[i] = new News();
+        news[i].Id = i.ToString();
+        news[i].Text = webElements[i].Text;
+      }
+      WorkWithJSON.SetNewInJSON(news);
       
       /*
       webElements = (from item in chromeDriver.FindElementsByTagName("div")

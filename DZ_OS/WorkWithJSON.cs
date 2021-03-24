@@ -1,44 +1,32 @@
 ﻿using System;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace DZ_OS
 {
-  
-    [DataContract]
-    public class ThisNew
+  public class News
+  {
+    [JsonInclude]
+    public string Id;
+    [JsonInclude]
+    public string Text;
+  }
+  class WorkWithJSON
     {
-      [DataMember]
-      public string Id;
-      [DataMember]
-      public string Text;
-    }
-
-    class WorkWithJSON
-    {
-      public static void SetNewInJSON(string id, string text)
+      public static void SetNewInJSON(News[] news)
       {
-      ThisNew thisNew = new ThisNew();
-      thisNew.Id = id;
-      thisNew.Text = text;
-      DataContractJsonSerializer dataContractJsonSerializer = new DataContractJsonSerializer(typeof(ThisNew));
-        using (FileStream file = new FileStream("f1(text).json", FileMode.OpenOrCreate))
+      JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions
+      {
+        WriteIndented = true,
+        AllowTrailingCommas = true
+      };
+        using (FileStream file = new FileStream("f1(text).json", FileMode.Append))
         {
-          dataContractJsonSerializer.WriteObject(file, thisNew);
+        string JsonString = JsonSerializer.Serialize(news);
+        JsonSerializer.SerializeAsync<News[]>(file, news,jsonSerializerOptions);
         }
       }
-     /*
-      public static Student GetDataFromJSON()
-      {
-        if (!File.Exists("студентик.json"))
-          return new Student();
-        DataContractJsonSerializer dataContractJsonSerializer = new DataContractJsonSerializer(typeof(Student));
-        using (FileStream file = new FileStream("студентик.json", FileMode.Open))
-        {
-          return (Student)dataContractJsonSerializer.ReadObject(file);
-        }
-      }
-     */
     }
 }
