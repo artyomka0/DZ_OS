@@ -19,6 +19,7 @@ namespace DZ_OS
 {
   /// <summary>
   /// Логика взаимодействия для MainWindow.xaml
+  /// https://docs.microsoft.com/ru-ru/troubleshoot/iis/make-get-request
   /// </summary>
   public partial class MainWindow : Window
   {
@@ -28,26 +29,18 @@ namespace DZ_OS
       if (System.IO.File.Exists("f1(text).json"))
         System.IO.File.Delete("f1(text).json");
     }
-    /*
-    public class News
-    {
-      public string Id;
-      public string Text;
-    }
-    */
     private void Button_Click(object sender, RoutedEventArgs e)
     {
       ChromeOptions chromeOptions = new ChromeOptions();
       // for PC C:\Users\Titanicus\AppData\Local\Google\Chrome\User Data
       // for laptop C:\Users\Admin\AppData\Local\Google\Chrome\User Data
-      chromeOptions.AddArgument(@"user-data-dir=C:\Users\Admin\AppData\Local\Google\Chrome\User Data");
+      chromeOptions.AddArgument(@"user-data-dir=C:\Users\Titanicus\AppData\Local\Google\Chrome\User Data");
       ChromeDriver chromeDriver = new ChromeDriver(chromeOptions);
       chromeDriver.Navigate().GoToUrl("https://vk.com/feed");
       
        //поиск с первой пары
       List<IWebElement> webElements = chromeDriver.FindElementsById("feed_rows").ToList();
       IWebElement webElementParent = null;
-      //WorkWithJSON.SetNewInJSON("id","text");
       foreach (var item in webElements)
       {
         if (!item.Displayed)
@@ -68,26 +61,6 @@ namespace DZ_OS
           continue;
         if (item.Text.ToString().Equals(""))
           continue;
-        /*
-        string NewsText = item.Text;
-        List<IWebElement> webElementsChild = item.FindElements(By.ClassName("author")).ToList();
-        foreach (var itemChild in webElementsChild)
-        {
-          if (!itemChild.Displayed)
-            continue;
-          string author = itemChild.Text;
-          // string id = itemChild.GetAttribute("data-post-id").Trim();
-        }
-        webElementsChild = item.FindElements(By.TagName("span")).ToList();
-        foreach (var itemChild in webElementsChild)
-        {
-          if (!itemChild.Displayed)
-            continue;
-          if (itemChild.GetAttribute("time") == null)
-            continue;
-          DateTime dateTime = new DateTime(1970, 1, 1).AddSeconds(double.Parse(itemChild.GetAttribute("time"))).ToLocalTime();
-        }
-        */
       }
 
       News[] news = new News[webElements.Count()];
@@ -98,29 +71,24 @@ namespace DZ_OS
         news[i].Text = webElements[i].Text;
       }
       WorkWithJSON.SetNewInJSON(news);
-      
-      /*
-      webElements = (from item in chromeDriver.FindElementsByTagName("div")
-                                         //where  item
-                                       select item).ToList();
-      
-
-      List<IWebElement> webElements = (from item in chromeDriver.FindElementsByTagName("div")
-                     where item.Displayed &&
-                     item.GetAttribute("class") != null &&
-                     item.GetAttribute("class").Trim().ToLower().Equals("feed_row")
-                     select item).ToList();
-      */
-      /*
-      for (int i = 0; i < webElements.Count(); i++)
-      {
-        if (!webElements[i].Text.ToString().Equals(""))
-        {
-          WorkWithJSON.SetNewInJSON(i.ToString(), webElements[i].Text.ToString());
-        }
-      }
-      */
       MessageBox.Show("done");
     }
+    /*
+    webElements = (from item in chromeDriver.FindElementsByTagName("div")
+                                       //where  item
+                                     select item).ToList();
+    List<IWebElement> webElements = (from item in chromeDriver.FindElementsByTagName("div")
+                   where item.Displayed &&
+                   item.GetAttribute("class") != null &&
+                   item.GetAttribute("class").Trim().ToLower().Equals("feed_row")
+                   select item).ToList();
+    for (int i = 0; i < webElements.Count(); i++)
+    {
+      if (!webElements[i].Text.ToString().Equals(""))
+      {
+        WorkWithJSON.SetNewInJSON(i.ToString(), webElements[i].Text.ToString());
+      }
+    }
+    */
   }
 }

@@ -20,7 +20,7 @@ namespace DZ_OS
       JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions
       {
         WriteIndented = true,
-        AllowTrailingCommas = true
+        AllowTrailingCommas = true,
       };
         using (FileStream file = new FileStream("f1(text).json", FileMode.Append))
         {
