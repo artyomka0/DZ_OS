@@ -9,18 +9,20 @@ namespace DZ_OS
 {
   class WorkWithVk
   {
-    //https://oauth.vk.com/blank.html#access_token=acc9c71ef06cb9f2cb5e1addfff19fc56b7ec4dc6dd8d04e0764b6118995abe8d221d63fa39cf005d8407&expires_in=86400&user_id=390678051
-    public static string GetWall(string groupId) 
+    //https://oauth.vk.com/authorize?client_id=7802823&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=wall&response_type=token&v=5.52
+
+    public static string GetWall()
     {
-      string token = "acc9c71ef06cb9f2cb5e1addfff19fc56b7ec4dc6dd8d04e0764b6118995abe8d221d63fa39cf005d8407";
+      string token = "8c41dc5e3555a83ff17c0adf8fa2a85e47404fe2e496cfaa1dee2bbd8c2d7aca248ab03554a6a010d1c58";
       string sURL;
-      //for (int i = 0; i < 5; i++)
+      int i = 0;
+      WebClient webClient = new WebClient();
+      //for (; i < 5; i++)
       //{
-      var i = 0;
-        sURL = "https://api.vk.com/method/execute.getNew?v=5.52&owner_id=-184925550&offset=" + i + "&count=1&access_token=" + token;
-        WebClient webClient = new WebClient();
+      sURL = "https://api.vk.com/method/execute.getNew?v=5.52&offset=" + i + "&access_token=" + token;
         string getedData = webClient.DownloadString(sURL);
         WorkWithJSON.SetJsonString("f1(text).json", getedData);
+      Console.WriteLine(getedData);
       return getedData;
       //}
     }

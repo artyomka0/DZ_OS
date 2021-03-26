@@ -2,26 +2,30 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace DZ_OS
 {
   public class News
   {
-    public string Id;
-    public string Text;
-  }
-  public class response
-  {
     public int Id;
     public string Text;
   }
+  
+  public class Response
+    {
+        [JsonPropertyNameAttribute("Id")]
+        public int Id { get; set; }
 
-  public class Root
-  {
-    public response Response { get; set; }
-  }
+        [JsonPropertyNameAttribute("Text")]
+        public string Text { get; set; }
+    }
 
-
+    public class Root
+    {
+        [JsonPropertyNameAttribute("response")]
+        public Response Response { get; set; }
+    }
   class WorkWithJSON
     {
       public static JsonSerializerOptions SetSerializerOptions()
@@ -51,10 +55,12 @@ namespace DZ_OS
         sw.WriteLine(getedData);
         sw.Close();
     }
-    public static News DeserializeNew(string json)
+    public static News DeserializeNewByString(string json)
     {
       Root root = JsonSerializer.Deserialize<Root>(json);
       News news = new News();
+      news.Id = root.Response.Id;
+      news.Text = root.Response.Text;
       return news;
     }
   }

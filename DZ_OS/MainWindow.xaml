@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Домашняя работа по ОС" Height="450" Width="800">
     <Grid>
-        <Button FontSize="50 px" Content="Запустить Хром" Background="IndianRed" HorizontalAlignment="Left" Margin="212,176,0,0" VerticalAlignment="Top" Width="auto" Click="Button_Click"/>
+        <Button FontSize="50 px" Content="Стащить данные у ВК" Background="IndianRed" HorizontalAlignment="Left" Margin="151,157,0,0" VerticalAlignment="Top" Width="auto" Click="Button_Click"/>
 
     </Grid>
 </Window>
