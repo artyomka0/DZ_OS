@@ -10,21 +10,18 @@ namespace DZ_OS
   class WorkWithVk
   {
     //https://oauth.vk.com/authorize?client_id=7802823&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=wall&response_type=token&v=5.52
-
-    public static string GetWall()
+    private static string token = "922b9513c49ee31fcd76f62b9011d122a6395da0af19da02a24f94a333793395bd9bb664dbaf24be90819";
+    public static void GetFromVk(int ID, int offset, string type)
     {
-      string token = "8c41dc5e3555a83ff17c0adf8fa2a85e47404fe2e496cfaa1dee2bbd8c2d7aca248ab03554a6a010d1c58";
       string sURL;
-      int i = 0;
       WebClient webClient = new WebClient();
-      //for (; i < 5; i++)
-      //{
-      sURL = "https://api.vk.com/method/execute.getNew?v=5.52&offset=" + i + "&access_token=" + token;
-        string getedData = webClient.DownloadString(sURL);
-        WorkWithJSON.SetJsonString("f1(text).json", getedData);
+      string getedData = " ";
+      sURL = "https://api.vk.com/method/execute.getNew"+ type +"?v=5.52&offset=" + offset + "&id=" + ID + "&access_token=" + token;
+      Console.WriteLine(sURL);
+      getedData = webClient.DownloadString(sURL);
+      WorkWithJSON.SetJsonString("("+ type + ").json", getedData);
       Console.WriteLine(getedData);
-      return getedData;
-      //}
+      //return getedData;
     }
   }
 }

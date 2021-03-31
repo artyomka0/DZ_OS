@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9DF766D3-AB0F-4F2A-B303-8D9D578FC429}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>DZ_OS</RootNamespace>
     <AssemblyName>DZ_OS</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>

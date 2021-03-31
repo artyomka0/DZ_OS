@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -16,7 +17,6 @@ namespace DZ_OS
     {
         [JsonPropertyNameAttribute("Id")]
         public int Id { get; set; }
-
         [JsonPropertyNameAttribute("Text")]
         public string Text { get; set; }
     }
@@ -51,10 +51,18 @@ namespace DZ_OS
 
     public static void SetJsonString(string fileName, string getedData)
     {
-        StreamWriter sw = new StreamWriter(fileName,true);
+        StreamWriter sw = new StreamWriter(fileName , true, Encoding.UTF8);
         sw.WriteLine(getedData);
+        //sw.WriteLine(",]");
         sw.Close();
     }
+    public static void SetJsonFormat(string fileName)
+    {
+      StreamWriter sw = new StreamWriter(fileName, true);
+      sw.WriteLine("[]");
+      sw.Close();
+    }
+
     public static News DeserializeNewByString(string json)
     {
       Root root = JsonSerializer.Deserialize<Root>(json);

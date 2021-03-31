@@ -25,8 +25,12 @@ namespace DZ_OS
     public MainWindow()
     {
       InitializeComponent();
-      if (System.IO.File.Exists("f1(text).json"))
-        System.IO.File.Delete("f1(text).json");
+      if (System.IO.File.Exists("(Text).json"))
+        System.IO.File.Delete("(Text).json");
+      if (System.IO.File.Exists("(Photo).json"))
+        System.IO.File.Delete("(Photo).json");
+      if (System.IO.File.Exists("(Link).json"))
+        System.IO.File.Delete("(Link).json");
     }
     /*
     public string GetSaveIdVk()
@@ -47,12 +51,42 @@ namespace DZ_OS
       return numbers[rnd.Next(0, 6)];
     }
     */
-    private void Button_Click(object sender, RoutedEventArgs e)
+
+    public void GetNewText()
     {
       for (int i = 0; i < 5; i++)
       {
-        WorkWithVk.GetWall();
+        Thread.Sleep(1000);
+        WorkWithVk.GetFromVk(-115511710, i,"Text");
+        Thread.Sleep(2000);
       }
+    }
+    public void GetNewPhoto()
+    {
+      for (int i = 0; i < 5; i++)
+      {
+        Thread.Sleep(2000);
+        WorkWithVk.GetFromVk(-115511710, i,"Photo");
+        Thread.Sleep(1000);
+      }
+    }
+
+    public void GetNewLink()
+    {
+      for (int i = 0; i < 5; i++)
+      {
+        Thread.Sleep(3000);
+        WorkWithVk.GetFromVk(-115511710, i, "Link");
+      }
+    }
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+      Thread thread1 = new Thread(new ThreadStart(GetNewText));
+      thread1.Start();
+      Thread thread2 = new Thread(new ThreadStart(GetNewPhoto));
+      thread2.Start();
+      Thread thread3 = new Thread(new ThreadStart(GetNewLink));
+      thread3.Start();
     }
   }
 }
