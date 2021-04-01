@@ -52,6 +52,16 @@ namespace DZ_OS
     }
     */
 
+
+    public void GetNew(string type)
+    {
+      for (int i = 0; i < 5; i++)
+      {
+        Thread.Sleep(1000);
+        WorkWithVk.GetFromVk(-115511710, i, type);
+        Thread.Sleep(2000);
+      }
+    }
     public void GetNewText()
     {
       for (int i = 0; i < 5; i++)
@@ -85,8 +95,8 @@ namespace DZ_OS
       thread1.Start();
       Thread thread2 = new Thread(new ThreadStart(GetNewPhoto));
       thread2.Start();
-      Thread thread3 = new Thread(new ThreadStart(GetNewLink));
-      thread3.Start();
+      //Thread thread3 = new Thread(new ThreadStart(GetNewLink));
+      //thread3.Start();
     }
   }
 }

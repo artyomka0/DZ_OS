@@ -14,18 +14,18 @@ namespace DZ_OS
   }
   
   public class Response
-    {
-        [JsonPropertyNameAttribute("Id")]
-        public int Id { get; set; }
-        [JsonPropertyNameAttribute("Text")]
-        public string Text { get; set; }
-    }
+  {
+    [JsonPropertyNameAttribute("Id")]
+    public int Id { get; set; }
+    [JsonPropertyNameAttribute("Text")]
+    public string Text { get; set; }
+  }
 
-    public class Root
-    {
-        [JsonPropertyNameAttribute("response")]
-        public Response Response { get; set; }
-    }
+  public class Root
+  {
+   [JsonPropertyNameAttribute("response")]
+   public Response Response { get; set; }
+  }
   class WorkWithJSON
     {
       public static JsonSerializerOptions SetSerializerOptions()
@@ -53,14 +53,7 @@ namespace DZ_OS
     {
         StreamWriter sw = new StreamWriter(fileName , true, Encoding.UTF8);
         sw.WriteLine(getedData);
-        //sw.WriteLine(",]");
         sw.Close();
-    }
-    public static void SetJsonFormat(string fileName)
-    {
-      StreamWriter sw = new StreamWriter(fileName, true);
-      sw.WriteLine("[]");
-      sw.Close();
     }
 
     public static News DeserializeNewByString(string json)
