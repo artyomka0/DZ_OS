@@ -53,50 +53,24 @@ namespace DZ_OS
     */
 
 
-    public void GetNew(string type)
+    public void GetNew(object type)
     {
-      for (int i = 0; i < 5; i++)
+      string type1 = type.ToString();
+      for (int i = 0; i < WorkWithVk.GetPostsCount(-115511710); i++)
       {
         Thread.Sleep(1000);
-        WorkWithVk.GetFromVk(-115511710, i, type);
-        Thread.Sleep(2000);
-      }
-    }
-    public void GetNewText()
-    {
-      for (int i = 0; i < 5; i++)
-      {
+        WorkWithVk.GetFromVk(-115511710, i, type1);
         Thread.Sleep(1000);
-        WorkWithVk.GetFromVk(-115511710, i,"Text");
-        Thread.Sleep(2000);
-      }
-    }
-    public void GetNewPhoto()
-    {
-      for (int i = 0; i < 5; i++)
-      {
-        Thread.Sleep(2000);
-        WorkWithVk.GetFromVk(-115511710, i,"Photo");
-        Thread.Sleep(1000);
-      }
-    }
-
-    public void GetNewLink()
-    {
-      for (int i = 0; i < 5; i++)
-      {
-        Thread.Sleep(3000);
-        WorkWithVk.GetFromVk(-115511710, i, "Link");
       }
     }
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-      Thread thread1 = new Thread(new ThreadStart(GetNewText));
-      thread1.Start();
-      Thread thread2 = new Thread(new ThreadStart(GetNewPhoto));
-      thread2.Start();
-      //Thread thread3 = new Thread(new ThreadStart(GetNewLink));
-      //thread3.Start();
+      Thread thread1 = new Thread(GetNew);
+      thread1.Start("Text");
+      Thread thread2 = new Thread(GetNew);
+      thread2.Start("Photo");
+      Thread thread3 = new Thread(GetNew);
+      thread3.Start("Link");
     }
   }
 }

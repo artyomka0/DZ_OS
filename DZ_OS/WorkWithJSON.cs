@@ -21,13 +21,24 @@ namespace DZ_OS
     public string Text { get; set; }
   }
 
-  public class Root
+  public class VkNewText
   {
    [JsonPropertyNameAttribute("response")]
    public Response Response { get; set; }
   }
+  public class Response1
+  {
+    [JsonPropertyNameAttribute("Count")]
+    public int Count { get; set; }
+  }
+  public class VkCount
+  {
+    [JsonPropertyNameAttribute("response")]
+    public Response1 Response { get; set; }
+  }
   class WorkWithJSON
     {
+    /*
       public static JsonSerializerOptions SetSerializerOptions()
       {
        JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions
@@ -37,7 +48,7 @@ namespace DZ_OS
           };
        return jsonSerializerOptions;
       }
-
+    */
     /*
       public static void SetNewsInJSON(News[] news)
       {
@@ -58,11 +69,19 @@ namespace DZ_OS
 
     public static News DeserializeNewByString(string json)
     {
-      Root root = JsonSerializer.Deserialize<Root>(json);
-      News news = new News();
-      news.Id = root.Response.Id;
-      news.Text = root.Response.Text;
+      VkNewText root = JsonSerializer.Deserialize<VkNewText>(json);
+      News news = new News
+      {
+        Id = root.Response.Id,
+        Text = root.Response.Text
+      };
       return news;
+    }
+
+    public static int DeserializeCount(string jsonString)
+    {
+      VkCount vkCount = JsonSerializer.Deserialize<VkCount>(jsonString);
+      return vkCount.Response.Count;
     }
   }
 }
