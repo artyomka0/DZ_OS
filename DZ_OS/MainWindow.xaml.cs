@@ -51,26 +51,93 @@ namespace DZ_OS
       return numbers[rnd.Next(0, 6)];
     }
     */
-
-
+    EventWaitHandle wh1 = new AutoResetEvent(false);
+    EventWaitHandle wh2 = new AutoResetEvent(false);
+    EventWaitHandle wh3 = new AutoResetEvent(false);
     public void GetNew(object type)
     {
       string type1 = type.ToString();
-      for (int i = 0; i < WorkWithVk.GetPostsCount(-115511710); i++)
+      int postCount = WorkWithVk.GetPostsCount(-115511710);
+      for (int i = 0; i < postCount; i++)
       {
         Thread.Sleep(1000);
-        WorkWithVk.GetFromVk(-115511710, i, type1);
-        Thread.Sleep(1000);
+        string getedData = WorkWithVk.GetFromVk(-115511710, i, type1);
+        Console.WriteLine(Thread.CurrentThread.Name);
+        WorkWithJSON.SetJsonString("(" + type + ").json", getedData);
+        int a = Convert.ToInt32(Thread.CurrentThread.Name);
+        switch (a)
+        {
+        case 1:
+          wh1.Set();
+          break;
+        case 2:
+          wh2.Set();
+          break;
+        case 3:
+          wh3.Set();
+          break;
+        };
+      };
+      
+    }
+
+    public void ReadNews()
+    {
+      Thread.Sleep(2000);
+      //int a = Convert.ToInt32(i);
+      string type = " ";
+      for (int i = 0; i < 4; i++)
+      {
+        switch (i)
+        {
+          case 0:
+            type = "sleep";
+            break;
+          case 1:
+            type = "Text";
+            wh1.WaitOne();
+            break;
+          case 2:
+            type = "Photo";
+          wh2.WaitOne();
+            break;
+          case 3:
+            type = "Link";
+          wh3.WaitOne();
+            break;
+        };
+      Console.WriteLine(Thread.CurrentThread.Name + "   в "+ i);
+        if (i != 0)
+        {
+          WorkWithJSON.GetJsonString("(" + type + ").json");
+          Thread.Sleep(1000);
+        }
+        if (i == 3)
+        {
+          i = 0;
+        }
       }
+      
     }
     private void Button_Click(object sender, RoutedEventArgs e)
     {
       Thread thread1 = new Thread(GetNew);
-      thread1.Start("Text");
+      thread1.Name = "1";
       Thread thread2 = new Thread(GetNew);
-      thread2.Start("Photo");
+      thread2.Name = "2";
       Thread thread3 = new Thread(GetNew);
+      thread3.Name = "3";
+      Thread thread4 = new Thread(ReadNews);
+      thread4.Name = "th4";
+      thread1.Start("Text");
+      thread2.Start("Photo");
       thread3.Start("Link");
+      thread4.Start();
+      // Thread Meneger
+     // for (int i = 0; i < 4; i++)
+      //{
+
+      //}
     }
   }
 }

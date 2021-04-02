@@ -59,7 +59,6 @@ namespace DZ_OS
         }
       }
    */
-
     public static void SetJsonString(string fileName, string getedData)
     {
         StreamWriter sw = new StreamWriter(fileName , true, Encoding.UTF8);
@@ -67,6 +66,12 @@ namespace DZ_OS
         sw.Close();
     }
 
+    public static void GetJsonString(string fileName)
+    {
+        StreamReader sw = new StreamReader(fileName, Encoding.UTF8);
+        string getedData = sw.ReadLine();
+        sw.Close();
+    }
     public static News DeserializeNewByString(string json)
     {
       VkNewText root = JsonSerializer.Deserialize<VkNewText>(json);
