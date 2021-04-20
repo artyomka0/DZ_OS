@@ -54,6 +54,9 @@ namespace DZ_OS
     EventWaitHandle wh1 = new AutoResetEvent(false);
     EventWaitHandle wh2 = new AutoResetEvent(false);
     EventWaitHandle wh3 = new AutoResetEvent(false);
+    EventWaitHandle wh12 = new AutoResetEvent(false);
+    EventWaitHandle wh22 = new AutoResetEvent(false);
+    EventWaitHandle wh32 = new AutoResetEvent(false);
     public void GetNew(object type)
     {
       string type1 = type.ToString();
@@ -68,14 +71,17 @@ namespace DZ_OS
         switch (a)
         {
         case 1:
-          wh1.Set();
-          break;
+            wh1.Set();
+            //WaitHandle.SignalAndWait(wh1, wh12);
+            break;
         case 2:
-          wh2.Set();
-          break;
+            wh2.Set();
+           //WaitHandle.SignalAndWait(wh2, wh22);
+            break;
         case 3:
-          wh3.Set();
-          break;
+            wh3.Set();
+            //WaitHandle.SignalAndWait(wh3, wh32);
+            break;
         };
       };
       
@@ -112,6 +118,22 @@ namespace DZ_OS
           WorkWithJSON.GetJsonString("(" + type + ").json");
           Thread.Sleep(1000);
         }
+        /*
+        switch (i)
+        {
+          case 0:
+            break;
+          case 1:
+            WaitHandle.SignalAndWait(wh12, wh1);
+            break;
+          case 2:
+            WaitHandle.SignalAndWait(wh22, wh2);
+            break;
+          case 3:
+            WaitHandle.SignalAndWait(wh32, wh3);
+            break;
+        };
+        */
         if (i == 3)
         {
           i = 0;
